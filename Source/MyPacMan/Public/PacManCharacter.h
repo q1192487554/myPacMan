@@ -31,23 +31,31 @@ public:
 	void MoveXAxis(float AxisValue);
 	void MoveYAxis(float AxisValue);
 
+	//todo 重启
 	void ReStart();
+	//todo 再来一局
 	void NewGame();
+	//todo 暂停
 	void Pause();
 
 	void Killed();
 
+	//todo 需要是豆子的数量值
 	int CollectablesToEat;
+
+	//todo 当前生命值
 	int Lives;
 
+	//todo 碰撞函数
 	UFUNCTION()
 	void OnCollision(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 
 private:
 	FVector CurrentVelocity;
-	FVector StartPoint;
+	FVector StartPoint;			
 
-	AMyPacManGameModeBase* GameMode;
+	//todo GameMode变量
+	AMyPacManGameModeBase* GameMode;		
 
 
 };

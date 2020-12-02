@@ -21,7 +21,11 @@ void APacManCharacter::BeginPlay()
 	Lives = 3;
 	StartPoint = GetActorLocation();
 	//UE_LOG(LogTemp, Warning, TEXT("StartPoint: %s"), *StartPoint.ToString());
+
+	//todo 获取 GameMode 然后赋值 
 	GameMode =Cast<AMyPacManGameModeBase> (UGameplayStatics::GetGameMode(this));
+
+	//todo 获取胶囊体  绑定碰撞函数
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this,&APacManCharacter::OnCollision);
 
 	for (TActorIterator<ACollectables> CollectableItr(GetWorld()); CollectableItr; ++CollectableItr) {
@@ -46,6 +50,7 @@ void APacManCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("MoveX", this, &APacManCharacter::MoveXAxis);
 	PlayerInputComponent->BindAxis("MoveY", this, &APacManCharacter::MoveYAxis);
 
+	//todo 绑定事件
 	PlayerInputComponent->BindAction("NewGame",IE_Pressed, this, &APacManCharacter::NewGame);
 	PlayerInputComponent->BindAction("ReStart", IE_Pressed, this, &APacManCharacter::ReStart);
 	PlayerInputComponent->BindAction("Pause", IE_Pressed, this, &APacManCharacter::Pause);
@@ -69,23 +74,30 @@ void APacManCharacter::MoveYAxis(float AxisValue)
 	}
 }
 
+//todo 重新开始
 void APacManCharacter::ReStart()
-{
+{	
+	//todo 获取世界 > 获取玩家控制器 > ConsoleCommand
 	GetWorld()->GetFirstPlayerController()->ConsoleCommand(TEXT("RestartLevel"));
 }
 
+//todo 开始游戏
 void APacManCharacter::NewGame()
-{
+{	
+	//todo 暂停
 	if (GameMode->GetCurrentState() == EGameState::EMenu) {
 		GameMode->SetCurrentState(EGameState::EPlaying);
 	}
 }
 
+//todo 暂停
 void APacManCharacter::Pause()
-{
+{	
+	//todo 判断是不是游戏中
 	if (GameMode->GetCurrentState() == EGameState::EPlaying) {
 		GameMode->SetCurrentState(EGameState::EPause);
 	}
+	//todo 暂停
 	else if (GameMode->GetCurrentState() == EGameState::EPause) {
 		GameMode->SetCurrentState(EGameState::EPlaying);
 	}
@@ -102,10 +114,12 @@ void APacManCharacter::Killed()
 }
 
 
-
+//todo 碰撞事件
 void APacManCharacter::OnCollision(UPrimitiveComponent * HitComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
+	//todo 判断游戏是否在进行中华
 	if (GameMode->GetCurrentState() == EGameState::EPlaying) {
+		//todo 判断碰撞的是不是 ACollectables这个类
 		if (OtherActor->IsA(ACollectables::StaticClass())) {
 			//UE_LOG(LogTemp, Warning, TEXT("66666"));
 			ACollectables* collectable= Cast<ACollectables>(OtherActor);
