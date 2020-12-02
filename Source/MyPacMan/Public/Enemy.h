@@ -27,6 +27,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	//todo 显示样子组件
 	UPROPERTY(VisibleAnywhere,Category=Body)
 	UStaticMeshComponent* EnemyBody;
 
@@ -41,7 +42,9 @@ public:
 		void OnCollision(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 
 private:
+	//todo 默认材质
 	class UMaterialInterface* DefaultMaterial;
+	//todo 主角吃敌人材质
 	class UMaterialInterface* VulnerableMaterial;
 	FTimerHandle TimeVulnerable;
 	bool bIsVulnerable;

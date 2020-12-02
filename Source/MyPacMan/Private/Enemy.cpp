@@ -14,17 +14,32 @@ AEnemy::AEnemy()
 
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	
+	//todo 创建StaticMesh组件
 	EnemyBody = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body"));
 
+	//todo 寻找模型
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> CylinderObj(TEXT("'/Game/StarterContent/Shapes/Shape_Cylinder'"));
 
+	//todo 判断模型是否正常
 	if (CylinderObj.Succeeded()) {
+		// 设置静态网格模型
 		EnemyBody->SetStaticMesh(CylinderObj.Object);
 	}
+
+	//todo 设置胶囊体半径大小
 	GetCapsuleComponent()->SetCapsuleRadius(40.0f);
+
+	//todo 设置胶囊体高度
 	GetCapsuleComponent()->SetCapsuleHalfHeight(50.0f);
+
+	//todo 设置相对大小
 	EnemyBody->SetRelativeScale3D(FVector(0.7f, 0.7f, 1.0f));
+
+	//todo 设置相对位置 和碰撞体重合
 	EnemyBody->SetRelativeLocation(FVector(0,0,-50));
+
+	//todo 把模型绑定到跟组件
 	EnemyBody->SetupAttachment(RootComponent);
 
 	static ConstructorHelpers::FObjectFinder<UMaterial>VulnerableMat(TEXT("'/Game/Materials/M_Enemy_Vulnerable'"));
