@@ -27,7 +27,10 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
+	//todo X轴移动
 	void MoveXAxis(float AxisValue);
+
+	//todo Y轴移动
 	void MoveYAxis(float AxisValue);
 
 	//todo 重启
@@ -36,7 +39,8 @@ public:
 	void NewGame();
 	//todo 暂停
 	void Pause();
-
+	
+	//todo 玩家受伤
 	void Killed();
 
 	//todo 剩余豆子的数量值  ==0 时候赢
@@ -51,6 +55,8 @@ public:
 
 private:
 	FVector CurrentVelocity;
+
+	//todo 角色初始位置		
 	FVector StartPoint;			
 
 	//todo GameMode变量

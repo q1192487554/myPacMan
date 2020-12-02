@@ -18,7 +18,11 @@ APacManCharacter::APacManCharacter()
 void APacManCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	//todo 角色生命值 
 	Lives = 3;
+
+	//todo 设置角色初始位置	
 	StartPoint = GetActorLocation();
 	//UE_LOG(LogTemp, Warning, TEXT("StartPoint: %s"), *StartPoint.ToString());
 
@@ -106,12 +110,16 @@ void APacManCharacter::Pause()
 	}
 }
 
+//todo 玩家受伤
 void APacManCharacter::Killed()
-{
+{	
+	//todo 判断玩家是否死亡
 	if (--Lives == 0) {
+		//todo 游戏结束
 		GameMode->SetCurrentState(EGameState::EGameOver);
 	}
 	else {
+		//todo 玩家受伤回到初始位置
 		SetActorLocation(StartPoint);
 	}
 }
