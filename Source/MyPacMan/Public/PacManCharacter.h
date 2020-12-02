@@ -27,7 +27,6 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	//todo 声明函数
 	void MoveXAxis(float AxisValue);
 	void MoveYAxis(float AxisValue);
 
@@ -40,7 +39,7 @@ public:
 
 	void Killed();
 
-	//todo 需要是豆子的数量值
+	//todo 剩余豆子的数量值  ==0 时候赢
 	int CollectablesToEat;
 
 	//todo 当前生命值

@@ -28,9 +28,12 @@ void APacManCharacter::BeginPlay()
 	//todo 获取胶囊体  绑定碰撞函数
 	GetCapsuleComponent()->OnComponentBeginOverlap.AddDynamic(this,&APacManCharacter::OnCollision);
 
+	//todo 迭代器 在我们的世界场景中找到  一个总数就加一个
 	for (TActorIterator<ACollectables> CollectableItr(GetWorld()); CollectableItr; ++CollectableItr) {
 		CollectablesToEat++;
 	}
+
+	//todo 打印log
 	//UE_LOG(LogTemp,Warning,TEXT("Total Collectable is %d"),CollectablesToEat);
 }
 
@@ -129,6 +132,8 @@ void APacManCharacter::OnCollision(UPrimitiveComponent * HitComp, AActor * Other
 			}
 
 			OtherActor->Destroy();
+
+			//todo 剩余豆子数量 ==0 就赢了
 			if (--CollectablesToEat == 0) {
 				GameMode->SetCurrentState(EGameState::EWin);
 			}
